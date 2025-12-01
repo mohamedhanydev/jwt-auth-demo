@@ -8,7 +8,7 @@ const register = async (req, res) => {
     const isExist = await User.findOne({ email });
     if (isExist)
       return res.status(400).json({ message: "User already exists!" });
-    const hashedPassword = hashPassword(password);
+    const hashedPassword = await hashPassword(password);
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
     res.status(201).json({ message: "User registered successfully!" });
